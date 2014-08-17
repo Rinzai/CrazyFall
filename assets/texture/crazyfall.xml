@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:5dbdc2871476c0ee1384fd5dc38c4f4e:09d1b1e96d02ab6e0370eb6e984ed4b8:cd65fb9d28ecdecc497a25fe0b3fc5bf$ -->
+<TextureAtlas imagePath="crazyfall.png">
+    <SubTexture name="end_background" x="2" y="2" width="800" height="1280"/>
+    <SubTexture name="end_bg_placar" x="804" y="1120" width="566" height="106"/>
+    <SubTexture name="end_bt_playagain_pt" x="2" y="1284" width="531" height="225"/>
+    <SubTexture name="end_message_pt" x="804" y="1228" width="535" height="52"/>
+    <SubTexture name="game_agua_01" x="804" y="1282" width="350" height="49"/>
+    <SubTexture name="game_agua_02" x="786" y="1333" width="350" height="45"/>
+    <SubTexture name="game_bacon" x="1481" y="1240" width="22" height="38"/>
+    <SubTexture name="game_bkg" x="1126" y="550" width="320" height="568"/>
+    <SubTexture name="game_char_die" x="1394" y="445" width="65" height="76"/>
+    <SubTexture name="game_char_fall" x="1394" y="367" width="65" height="76"/>
+    <SubTexture name="game_char_fear" x="1394" y="289" width="65" height="76"/>
+    <SubTexture name="game_char_hit" x="1372" y="1120" width="65" height="76"/>
+    <SubTexture name="game_chicken" x="1461" y="353" width="42" height="45"/>
+    <SubTexture name="game_fish" x="1108" y="1380" width="28" height="50"/>
+    <SubTexture name="game_rock01" x="1394" y="218" width="100" height="69"/>
+    <SubTexture name="game_rock02" x="1394" y="147" width="100" height="69"/>
+    <SubTexture name="game_rock03" x="1394" y="2" width="100" height="72"/>
+    <SubTexture name="game_rock04" x="1394" y="76" width="100" height="69"/>
+    <SubTexture name="game_siri_01" x="1396" y="1451" width="62" height="30"/>
+    <SubTexture name="game_siri_02" x="1405" y="1419" width="62" height="30"/>
+    <SubTexture name="game_topo" x="730" y="1434" width="320" height="52"/>
+    <SubTexture name="game_water_left01" x="1405" y="1366" width="58" height="51"/>
+    <SubTexture name="game_water_left02" x="1448" y="573" width="56" height="36"/>
+    <SubTexture name="game_water_right01" x="1336" y="1435" width="58" height="51"/>
+    <SubTexture name="game_water_right02" x="1448" y="535" width="56" height="36"/>
+    <SubTexture name="game_water_rock01" x="822" y="1488" width="90" height="17"/>
+    <SubTexture name="game_water_rock02" x="730" y="1488" width="90" height="23"/>
+    <SubTexture name="home_bg" x="804" y="550" width="320" height="568"/>
+    <SubTexture name="home_logo_item" x="1156" y="1282" width="178" height="211" frameX="-23" frameY="-15" frameWidth="224" frameHeight="241"/>
+    <SubTexture name="home_logo_text" x="535" y="1284" width="249" height="144"/>
+    <SubTexture name="home_start_btn" x="535" y="1430" width="193" height="82"/>
+    <SubTexture name="logo" x="804" y="2" width="588" height="546"/>
+    <SubTexture name="mute" x="1448" y="648" width="35" height="35"/>
+    <SubTexture name="mute_effects" x="1336" y="1324" width="138" height="40" frameX="-9" frameY="0" frameWidth="154" frameHeight="40"/>
+    <SubTexture name="mute_music" x="1336" y="1282" width="138" height="40" frameX="-9" frameY="0" frameWidth="154" frameHeight="40"/>
+    <SubTexture name="pause" x="1448" y="611" width="35" height="35"/>
+    <SubTexture name="pause_grande" x="1336" y="1366" width="67" height="67"/>
+    <SubTexture name="ranking" x="1461" y="289" width="44" height="62" frameX="-11" frameY="0" frameWidth="64" frameHeight="64"/>
+    <SubTexture name="resume_1" x="786" y="1284" width="15" height="47" frameX="-24" frameY="-10" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="resume_2" x="1461" y="449" width="29" height="47" frameX="-18" frameY="-10" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="resume_3" x="1461" y="400" width="29" height="47" frameX="-18" frameY="-10" frameWidth="67" frameHeight="67"/>
+    <SubTexture name="start_grande" x="1052" y="1434" width="67" height="67"/>
+    <SubTexture name="texture" x="1448" y="685" width="30" height="30" frameX="0" frameY="0" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="topo" x="786" y="1380" width="320" height="52"/>
+    <SubTexture name="unmute" x="1461" y="498" width="35" height="35"/>
+    <SubTexture name="unmute_effects" x="1341" y="1240" width="138" height="40" frameX="-9" frameY="0" frameWidth="154" frameHeight="40"/>
+    <SubTexture name="unmute_music" x="1372" y="1198" width="138" height="40" frameX="-9" frameY="0" frameWidth="154" frameHeight="40"/>
+</TextureAtlas>
