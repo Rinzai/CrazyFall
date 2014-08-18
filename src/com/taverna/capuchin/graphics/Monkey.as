@@ -55,7 +55,13 @@ import starling.events.Event;
 			
 			game_char.addChild( game_char_fall_image );
 			game_char.addChild( game_water_left );
-			game_char.addChild( game_water_right );			
+			game_char.addChild( game_water_right );
+			
+			game_water_left.visible = false;
+			game_water_right.visible = false;
+			game_char.y = -10;
+			
+			addChild( game_char );
 
 			this.touchable = false;
 		}
@@ -85,9 +91,9 @@ import starling.events.Event;
 		{
 			if(_currMonkeyImage)
 			{
-				if(contains( _currMonkeyImage ) )
+				if(game_char.contains( _currMonkeyImage ) )
 				{
-					removeChild( _currMonkeyImage );
+					game_char.removeChild( _currMonkeyImage );
 				}
 				
 				_currMonkeyImage = null;
@@ -95,7 +101,7 @@ import starling.events.Event;
 			
 			_currMonkeyImage = image;
 			
-			addChild( _currMonkeyImage );
+			game_char.addChild( _currMonkeyImage );
 			
 			this.pivotX = this._currMonkeyImage.width*0.5;
 			this.pivotY = 20;
@@ -144,7 +150,7 @@ import starling.events.Event;
 			{
 				removeWaters();
 				
-				changeMonkeyImage( game_char, "m_d_left" );
+				changeMonkeyImage( game_water_left, "m_d_left" );
 				
 				game_water_left.visible = true;
 				CapuchinGame.juggler.add(game_water_left);
@@ -158,7 +164,7 @@ import starling.events.Event;
 		{
 			if(game_water_right.visible == false)
 			{
-				changeMonkeyImage( game_char, "m_w_left" );
+				changeMonkeyImage( game_water_right, "m_w_left" );
 				
 				game_water_right.visible = true;
 				CapuchinGame.juggler.add(game_water_right);

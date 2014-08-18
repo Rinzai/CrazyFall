@@ -20,6 +20,7 @@ import flash.events.KeyboardEvent;
 import flash.system.System;
 import flash.ui.Keyboard;
 
+import nape.callbacks.CbType;
 import nape.callbacks.InteractionCallback;
 import nape.callbacks.InteractionType;
 import nape.geom.Vec2;
@@ -163,16 +164,16 @@ public final class CapuchinGame extends Sprite
 			
 			_capuchin = new Monkey();
 			_capuchin.downLeft();
-			_capuchin.x = stage.stageWidth*0.5;
+			_capuchin.x = 30
 			_capuchin.y = 150;
 			addChild( _capuchin );
 			
 			initCapuchinPosition = Vec2.weak( _capuchin.x, _capuchin.y);
 
 			_topFire= new TopFire();
-			_topFire.y = 20;
+			_topFire.y = -50;
 			_topFire.x = stage.stageWidth*0.5
-		//addChild( _topFire );
+		 	addChild( _topFire );
 			
 			topScore = new TopScore();
 			topScore.addEventListener( starling.events.TouchEvent.TOUCH, onTopScoreButtonClickedHandler );
@@ -321,11 +322,6 @@ public final class CapuchinGame extends Sprite
 			}
 			
 			
-		}
-		
-		private function collisionFireAndBranchHanlder(i1:InteractionCallback):void
-		{
-			capuchinDie();
 		}
 		
 	    private function onTochHandler(e:TouchEvent):void {
@@ -498,6 +494,8 @@ public final class CapuchinGame extends Sprite
 				}
 				
 			}
+			
+			
 			
 		}
 		

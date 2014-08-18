@@ -1,22 +1,20 @@
 package com.taverna.capuchin.graphics {
 
-import nape.phys.Body;
-import nape.phys.BodyType;
-import nape.shape.Shape;
-import nape.shape.Polygon;
-import nape.shape.Circle;
-import nape.geom.Vec2;
-import nape.geom.Vec3;
-import nape.dynamics.InteractionFilter;
-import nape.phys.Material;
-import nape.phys.FluidProperties;
-import nape.callbacks.CbType;
-import nape.callbacks.CbTypeList;
-import nape.geom.AABB;
-
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
+
+import nape.callbacks.CbType;
+import nape.callbacks.CbTypeList;
+import nape.dynamics.InteractionFilter;
+import nape.geom.Vec2;
+import nape.geom.Vec3;
+import nape.phys.Body;
+import nape.phys.FluidProperties;
+import nape.phys.Material;
+import nape.shape.Circle;
+import nape.shape.Polygon;
+import nape.shape.Shape;
 
 public class Nape {
 
@@ -252,7 +250,7 @@ public class Nape {
                         filt
                     );
                     s.body = body;
-                    s.sensorEnabled = false;
+                    s.sensorEnabled = true;
                     s.fluidEnabled = false;
                     s.fluidProperties = prop;
                     cbtype(s.cbTypes,"");
@@ -401,10 +399,10 @@ public class Nape {
                             filt
                         );
                         s.body = body;
-                        s.sensorEnabled = false;
+                        s.sensorEnabled = true;
                         s.fluidEnabled = false;
                         s.fluidProperties = prop;
-                        cbtype(s.cbTypes,"");
+                        cbtype(s.cbTypes,"siri");
                     
                 
             
@@ -431,7 +429,7 @@ public class Nape {
                             filt
                         );
                         s.body = body;
-                        s.sensorEnabled = false;
+                        s.sensorEnabled = true;
                         s.fluidEnabled = false;
                         s.fluidProperties = prop;
                         cbtype(s.cbTypes,"");
@@ -449,8 +447,8 @@ public class Nape {
 }
 }
 
-import nape.phys.Body;
 import nape.geom.Vec2;
+import nape.phys.Body;
 
 class BodyPair {
     public var body:Body;

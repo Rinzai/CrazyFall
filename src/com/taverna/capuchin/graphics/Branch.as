@@ -20,6 +20,7 @@ import starling.display.Sprite;
         private var _bounds:Rectangle = new Rectangle();
 
         public var body:Body;
+		public var siriBody:Body;
 		
 		private var _isBlueFireBranch:Boolean;
 		
@@ -75,6 +76,14 @@ import starling.display.Sprite;
 				addChild( siriMovieClip );
 				siriMovieClip.y = -23;
 				siriMovieClip.x = 15;
+				
+				siriBody = Nape.createBody("siri", this );
+				siriBody.type = BodyType.DYNAMIC;
+				siriBody.mass = 0;
+				siriBody.inertia = 0;
+				siriBody.allowMovement = true;
+				siriBody.allowRotation = false;
+				siriBody.setShapeMaterials( new Material(0,0,0,0,0) );
 			}
 			
 			this.pivotX = (this.width*0.5)-2;
