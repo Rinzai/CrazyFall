@@ -1,5 +1,6 @@
 package com.taverna.capuchin.graphics
 {
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import nape.geom.Vec2;
@@ -28,7 +29,7 @@ import starling.display.Sprite;
 		private static var _vecFireBranchs:Vector.<Branch> = new Vector.<Branch>();
 		private static var _vecBranchsInGame:Vector.<Branch> = new Vector.<Branch>();
 
-		private var siriMovieClip:MovieClip;
+		public var siriMovieClip:MovieClip;
 
 		private const water:MovieClip = new MovieClip(Assets.getTextures("game_water_rock"));;
 
@@ -66,13 +67,12 @@ import starling.display.Sprite;
 			water.x = 5;
 			addChild( water );
 			
-			
-			
 			addChild( branch );
 
 			if(_isFireBranch)
 			{
 				siriMovieClip = new MovieClip(Assets.getTextures("game_siri_"),3);
+				siriMovieClip.name = "siri";
 				addChild( siriMovieClip );
 				siriMovieClip.y = -23;
 				siriMovieClip.x = 15;
@@ -84,6 +84,7 @@ import starling.display.Sprite;
 				siriBody.allowMovement = true;
 				siriBody.allowRotation = false;
 				siriBody.setShapeMaterials( new Material(0,0,0,0,0) );
+				
 			}
 			
 			this.pivotX = (this.width*0.5)-2;

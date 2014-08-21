@@ -31,14 +31,15 @@ package com.taverna.capuchin.screen
 	
 	public final class ScreenGameOver extends Sprite
 	{
-		private const bkg:Image = new Image( Assets.getTexture("CAFG-background") );
-		private const scoreBkg:Image = new Image( Assets.getTexture("CAFG-score") );
-		private const playAgainBtn:Button = new Button( Assets.getTexture("CAFG-play_again") );
-		private const ranking:Button = new Button( Assets.getTexture("ranking") );
+		private const bkg:Image = new Image( Assets.getTexture("end_background") );
+		private const logo:Image = new Image( Assets.getTexture("logo") );
+		private const scoreBkg:Image = new Image( Assets.getTexture("end_bg_placar") );
+		private const playAgainBtn:Button = new Button( Assets.getTexture("end_bt_playagain_pt") );
+		//private const ranking:Button = new Button( Assets.getTexture("ranking") );
 
 		private var score:TextField;
 
-		private var screenName:TextField;
+		//private var screenName:TextField;
 		
 		public function ScreenGameOver()
 		{
@@ -48,35 +49,40 @@ package com.taverna.capuchin.screen
 			
 			addChild( bkg );
 			
-			scoreBkg.x = 40;
-			scoreBkg.y = 320;
+			scoreBkg.x = Starling.current.stage.stageWidth*0.5-scoreBkg.width*0.5;
+			scoreBkg.y = 400;
 			scoreBkg.touchable = false;
 			addChild( scoreBkg );
 			
-			playAgainBtn.x = 60;
-			playAgainBtn.y = 400;
+			logo.x = Starling.current.stage.stageWidth*0.5-logo.width*0.5;
+			logo.y = 100;
+			
+			addChild( logo );
+			
+			playAgainBtn.x = Starling.current.stage.stageWidth*0.5-playAgainBtn.width*0.5;;
+			playAgainBtn.y = 490;
 			addChild( playAgainBtn );
 			
 			playAgainBtn.addEventListener( starling.events.Event.TRIGGERED, onClickedHandler );
 			
-			score = new TextField(140,20,"0123456789", "Arial Rounded MT Bold", 16, 0xFFFFFF);
-			score.hAlign = HAlign.LEFT;
+			score = new TextField(scoreBkg.width,scoreBkg.height,"0123456789", "Arial Rounded MT Bold", 16, 0xFFFFFF);
+			score.hAlign = HAlign.CENTER;
 			score.vAlign = VAlign.CENTER;
 			score.batchable = true;
-			score.x = scoreBkg.x+85;
-			score.y = scoreBkg.y+13;
+			score.x = scoreBkg.x;
+			score.y = scoreBkg.y;
 			addChild( score );
 			
-			ranking.pivotX = ranking.width*0.5;
+			/*ranking.pivotX = ranking.width*0.5;
 			ranking.x = bkg.width*0.5;
 			ranking.y = scoreBkg.y - 75;
 			addChild( ranking );
-
+*/
 			//addPlayerName("Victor Carvalho Tavernari");
 			//TODO: SOLUCAO PARA FICAR NOME GENERICO!
 			//
 
-			ranking.addEventListener( starling.events.Event.TRIGGERED, onRankingClickedHandler );
+			//ranking.addEventListener( starling.events.Event.TRIGGERED, onRankingClickedHandler );
 			
 			Observer.dispatcher.addEventListener( CapuchinEvent.UPDATE_PLAYER_NAME, onUpdatePlayerName );
 			
@@ -137,7 +143,7 @@ package com.taverna.capuchin.screen
 				point = "";
 			}
 			
-			ranking.x = 70;
+			/*ranking.x = 70;
 			
 			if(screenName == null)
 			{
@@ -149,7 +155,7 @@ package com.taverna.capuchin.screen
 				addChild( screenName );
 			}
 			
-			screenName.text = point+""+value;
+			screenName.text = point+""+value;*/
 		}
 		
 		private function onAddedToStageHandler(e:starling.events.Event):void
@@ -171,7 +177,7 @@ package com.taverna.capuchin.screen
 			try{
 				trace("try show banner / ", AdMob.isSupported);
 				
-				CapuchinAndroidVersion.banner.show();
+				//CapuchinAndroidVersion.banner.show();
 				
 				/*if(AdMob.isSupported)
 				{
@@ -191,10 +197,10 @@ package com.taverna.capuchin.screen
 		{
 			try{
 				trace("try hide banner / ", AdMob.isSupported)
-				if(AdMob.isSupported)
-				{
-					AdMob.destroyAd();
-				}
+				//if(AdMob.isSupported)
+				//{
+					//AdMob.destroyAd();
+				//}
 			}catch(e:Error)
 			{
 				trace("error hide banner")

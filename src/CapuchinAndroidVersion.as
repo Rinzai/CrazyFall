@@ -1,20 +1,13 @@
 package
 {
 	import com.freshplanet.ane.AirGooglePlayGames.AirGooglePlayGames;
-	import com.milkmangames.nativeextensions.RateBox;
 	import com.purplebrain.adbuddiz.sdk.nativeExtensions.AdBuddiz;
 	import com.sticksports.nativeExtensions.mopub.MoPubBanner;
-	import com.sticksports.nativeExtensions.mopub.MoPubEvent;
-	import com.sticksports.nativeExtensions.mopub.MoPubNativeAdOrientation;
-	import com.sticksports.nativeExtensions.mopub.MoPubSize;
 	import com.taverna.capuchin.helpers.AnalyticsHelper;
-	import com.taverna.capuchin.model.ConfigModel;
 	
-	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.net.URLRequest;
 	
 	import starling.core.Starling;
 	
@@ -120,8 +113,8 @@ package
 						//AdMob.enableTestDeviceIDs( AdMob.getCurrentTestDeviceIDs() );
 				}*/
 				
-				AdBuddiz.setAndroidPublisherKey("65f7440f-4319-48e4-8f08-5e43bc97424d");
-				AdBuddiz.cacheAds();
+				//AdBuddiz.setAndroidPublisherKey("65f7440f-4319-48e4-8f08-5e43bc97424d");
+				//AdBuddiz.cacheAds();
 				
 				if(AirGooglePlayGames.isSupported)
 				{
@@ -144,6 +137,8 @@ package
 				
 				_starling.stage.stageWidth  = 320;
 				_starling.stage.stageHeight = 568;
+				
+				//stage.addChild( debugSprite );
 			}
 		}
 		

@@ -7,11 +7,14 @@ import nape.phys.Body;
 import nape.phys.Material;
 
 import starling.animation.DelayedCall;
+import starling.animation.Tween;
+import starling.core.Starling;
 import starling.display.DisplayObject;
 import starling.display.Image;
 import starling.display.MovieClip;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.utils.deg2rad;
 	
 	public final class Monkey extends Sprite
 	{
@@ -53,13 +56,17 @@ import starling.events.Event;
 			_capuchinBody.setShapeMaterials( new Material(0,0,0,0,0) );
 			_capuchinBody.surfaceVel = Vec2.weak(0,0);
 			
+			_currMonkeyImage = game_char_fall_image;
 			game_char.addChild( game_char_fall_image );
 			game_char.addChild( game_water_left );
 			game_char.addChild( game_water_right );
 			
 			game_water_left.visible = false;
 			game_water_right.visible = false;
-			game_char.y = -10;
+			game_water_left.y = game_water_right.y = 30;
+			game_water_left.x = -27;
+			game_water_right.x = +27;
+			game_char.y = -30;
 			
 			addChild( game_char );
 
@@ -100,7 +107,10 @@ import starling.events.Event;
 			}
 			
 			_currMonkeyImage = image;
-			
+			_currMonkeyImage.pivotX = _currMonkeyImage.width*0.5;
+			_currMonkeyImage.pivotY = _currMonkeyImage.height-10;
+			_currMonkeyImage.y = 71;
+			_currMonkeyImage.x = 35;
 			game_char.addChild( _currMonkeyImage );
 			
 			this.pivotX = this._currMonkeyImage.width*0.5;
@@ -124,7 +134,11 @@ import starling.events.Event;
 				
 				changeMonkeyImage( game_char_fear, "m_w_left" );
 				
+				game_water_left.visible = true;
+				CapuchinGame.juggler.add(game_water_left);
 				callCapuchin();
+				
+				CapuchinGame.juggler.tween(game_char_fear,0.1,{rotation:deg2rad(-5)});
 				
 				isWalking = true;
 			}
@@ -138,7 +152,11 @@ import starling.events.Event;
 				
 				changeMonkeyImage( game_char_fear, "m_w_right" );
 				
+				game_water_right.visible = true;
+				CapuchinGame.juggler.add(game_water_right);
 				callCapuchin();
+				
+				CapuchinGame.juggler.tween(game_char_fear,0.1,{rotation:deg2rad(+5)});
 				
 				isWalking = true;
 			}
@@ -146,15 +164,12 @@ import starling.events.Event;
 		
 		public function downLeft():void
 		{
-			if(game_water_left.visible == false)
+			if(game_char.contains(game_char_fall_image) == false)
 			{
 				removeWaters();
 				
-				changeMonkeyImage( game_water_left, "m_d_left" );
-				
-				game_water_left.visible = true;
-				CapuchinGame.juggler.add(game_water_left);
-				
+				changeMonkeyImage( game_char_fall_image, "m_d_left" );
+				CapuchinGame.juggler.tween(game_char_fear,0.1,{rotation:deg2rad(0)});
 				
 				isWalking = false;
 			}
@@ -162,12 +177,13 @@ import starling.events.Event;
 		
 		public function downRight():void
 		{
-			if(game_water_right.visible == false)
+			if(game_char.contains(game_char_fall_image) == false)
 			{
-				changeMonkeyImage( game_water_right, "m_w_left" );
 				
-				game_water_right.visible = true;
-				CapuchinGame.juggler.add(game_water_right);
+				removeWaters();
+				
+				changeMonkeyImage( game_char_fall_image, "m_w_left" );
+				CapuchinGame.juggler.tween(game_char_fear,0.1,{rotation:deg2rad(0)});
 				
 				isWalking = false;
 			}
@@ -175,7 +191,12 @@ import starling.events.Event;
 		
 		public function kill():void
 		{
+			
+			removeWaters();
+			
 			changeMonkeyImage( game_char_die, "m_die_right");
+			
+			_isDie = true;
 		}
 		
 		private function callCapuchin():void

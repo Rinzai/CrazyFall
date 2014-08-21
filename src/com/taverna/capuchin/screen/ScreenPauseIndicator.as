@@ -34,7 +34,7 @@ package com.taverna.capuchin.screen
 		
 		protected var screenName:TextField;
 		
-		protected const ranking:Button = new Button( Assets.getTexture("ranking") );
+		//protected const ranking:Button = new Button( Assets.getTexture("ranking") );
 		
 		protected const unmuteMusic:Button = new Button( Assets.getTexture("unmute_music") );
 		protected const muteMusic:Button = new Button( Assets.getTexture("mute_music") );
@@ -108,19 +108,19 @@ package com.taverna.capuchin.screen
 			addChild( _2 );
 			addChild( _3 );
 			
-			ranking.pivotX = ranking.width*0.5;
-			ranking.x = _bkg.width*0.5;
-			ranking.y = startBtn.y+95;
-			addChild( ranking );
+			//ranking.pivotX = ranking.width*0.5;
+			//ranking.x = _bkg.width*0.5;
+			//ranking.y = startBtn.y+95;
+			//addChild( ranking );
 			
 			unmuteFX.pivotX = unmuteFX.width*0.5;
 			unmuteFX.x = _bkg.width*0.5;
-			unmuteFX.y = ranking.y +110;
+			unmuteFX.y = startBtn.y+95 +110;
 			addChild( unmuteFX );
 			
 			muteFX.pivotX = muteFX.width*0.5;
 			muteFX.x = _bkg.width*0.5;
-			muteFX.y = ranking.y + 110;
+			muteFX.y = startBtn.y+95 + 110;
 			addChild( muteFX );
 			
 			unmuteMusic.pivotX = unmuteMusic.width*0.5;
@@ -140,7 +140,7 @@ package com.taverna.capuchin.screen
 			muteMusic.addEventListener( starling.events.Event.TRIGGERED, onMuteClickedHandler );
 			
 			//addPlayerName("Victor Carvalho Tavernari");
-			ranking.addEventListener( starling.events.Event.TRIGGERED, onRankingClickedHandler );
+			//ranking.addEventListener( starling.events.Event.TRIGGERED, onRankingClickedHandler );
 			
 			Observer.dispatcher.addEventListener( CapuchinEvent.UPDATE_PLAYER_NAME, onUpdatePlayerName );
 
@@ -154,7 +154,7 @@ package com.taverna.capuchin.screen
 			}
 			
 			updateVolume();
-			ranking.touchable = true;
+			//ranking.touchable = true;
 			AnalyticsHelper.trackView("PAUSE INDICATOR SCREEN");
 			
 		}
@@ -194,13 +194,13 @@ package com.taverna.capuchin.screen
 		{
 			if(value == null || value == "") return;
 			
-			ranking.x = 70;
+			//ranking.x = 70;
 			
 			if(screenName == null)
 			{
 				screenName = new TextField(180, 30, "","Verdana" ,15,0xFFFFFF);
-				screenName.x = ranking.x+ranking.width*0.5;
-				screenName.y = ranking.y + 20;
+				//screenName.x = ranking.x+ranking.width*0.5;
+				//screenName.y = ranking.y + 20;
 				screenName.hAlign = HAlign.LEFT;
 				screenName.autoScale = true;
 				addChild( screenName );
@@ -227,9 +227,10 @@ package com.taverna.capuchin.screen
 		
 		protected function onStartBtnClickedHandler(e:starling.events.Event):void
 		{
-			if(ranking.touchable == false) return;
+			if(startBtn.touchable == false) return;
 			
-			ranking.touchable = false;
+			startBtn.touchable = false;
+			//ranking.touchable = false;
 			
 			var tw:Tween = new Tween(startBtn, 0.9, Transitions.EASE_IN);
 			tw.scaleTo( 0 );

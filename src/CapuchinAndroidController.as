@@ -167,8 +167,8 @@ package
 			
 			_startScreen = new CrazyFallHomeScreen();
 			_capuchinGame = new CapuchinGame();	
-			//_pauseIndicator = new ScreenPauseIndicatorAndroid();
-			//_gameOverScreen = new ScreenGameOver();
+			_pauseIndicator = new ScreenPauseIndicatorAndroid();
+			_gameOverScreen = new ScreenGameOver();
 			
 			addChild( _startScreen );
 			
@@ -182,7 +182,7 @@ package
 		private function onShowRanking(e:starling.events.Event):void
 		{
 			
-			if(ConfigModel.getData().can_show_leaderboard && ConfigModel.hasConnection)
+			/*if(ConfigModel.getData().can_show_leaderboard && ConfigModel.hasConnection)
 			{
 				
 				try
@@ -226,12 +226,12 @@ package
 					}
 					
 				}
-			}
+			}*/
 		}
 		
 		protected function onGooglePlayReady(event:flash.events.Event):void
 		{
-			try
+			/*try
 			{
 				AnalyticsHelper.trackEvent("Ranking", "SignIn Sucess");
 				AirGooglePlayGames.getInstance().removeEventListener( AirGooglePlayGamesEvent.ON_SIGN_IN_SUCCESS, onGooglePlayReady );
@@ -252,18 +252,18 @@ package
 			}catch(e:Error)
 			{
 				AnalyticsHelper.trackEvent("Ranking", "Error");
-			}
+			}*/
 		}
 		
 		private function updatePlayerName():void
 		{
-			if(AirGooglePlayGames.getInstance().getActivePlayerName())
+			/*if(AirGooglePlayGames.getInstance().getActivePlayerName())
 			{
 				Observer.dispatcher.dispatchEvent( new CapuchinEvent( CapuchinEvent.UPDATE_PLAYER_NAME, false, AirGooglePlayGames.getInstance().getActivePlayerName() ) );
 			}else
 			{
 				Observer.dispatcher.dispatchEvent( new CapuchinEvent( CapuchinEvent.UPDATE_PLAYER_NAME, false, "") );
-			}
+			}*/
 		}
 		
 		private function onPlayAgainClickedHandler(e:starling.events.Event):void
@@ -281,8 +281,8 @@ package
 		
 		private function onGameOver(e:starling.events.Event):void
 		{
-			//removeChild( _capuchinGame );
-			//addChild( _gameOverScreen );
+			removeChild( _capuchinGame );
+			addChild( _gameOverScreen );
 			
 			/*if(AirGooglePlayGames.isSupported && AirGooglePlayGames.getInstance().getActivePlayerName())
 			{

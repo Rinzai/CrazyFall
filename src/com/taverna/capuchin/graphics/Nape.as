@@ -1,4 +1,4 @@
-package com.taverna.capuchin.graphics {
+package com.taverna.capuchin.graphics{
 
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
@@ -215,7 +215,7 @@ public class Nape {
                 
                     
                         s = new Polygon(
-                            [   Vec2.weak(67,36)   ,  Vec2.weak(35,56)   ,  Vec2.weak(28,106)   ,  Vec2.weak(43,146)   ,  Vec2.weak(66,150)   ,  Vec2.weak(89,146)   ,  Vec2.weak(102,89)   ,  Vec2.weak(96,52)   ],
+                            [   Vec2.weak(20,22)   ,  Vec2.weak(12,48)   ,  Vec2.weak(20,71)   ,  Vec2.weak(31,76)   ,  Vec2.weak(43,73)   ,  Vec2.weak(52,53)   ,  Vec2.weak(50,29)   ,  Vec2.weak(36,21)   ],
                             mat,
                             filt
                         );
@@ -228,7 +228,7 @@ public class Nape {
                 
             
 
-            anchor = (true) ? body.localCOM.copy() : Vec2.get(0,152);
+            anchor = (true) ? body.localCOM.copy() : Vec2.get(0,76);
             body.translateShapes(Vec2.weak(-anchor.x,-anchor.y));
             body.position.setxy(0,0);
 
@@ -399,10 +399,10 @@ public class Nape {
                             filt
                         );
                         s.body = body;
-                        s.sensorEnabled = true;
+                        s.sensorEnabled = false;
                         s.fluidEnabled = false;
                         s.fluidProperties = prop;
-                        cbtype(s.cbTypes,"siri");
+                        cbtype(s.cbTypes,"");
                     
                 
             
@@ -424,7 +424,7 @@ public class Nape {
                 
                     
                         s = new Polygon(
-                            [   Vec2.weak(689,57)   ,  Vec2.weak(0,57)   ,  Vec2.weak(0,97)   ,  Vec2.weak(688,99)   ],
+                            [   Vec2.weak(689,9)   ,  Vec2.weak(0,9)   ,  Vec2.weak(0,49)   ,  Vec2.weak(688,51)   ],
                             mat,
                             filt
                         );
@@ -437,11 +437,71 @@ public class Nape {
                 
             
 
-            anchor = (true) ? body.localCOM.copy() : Vec2.get(0,97);
+            anchor = (true) ? body.localCOM.copy() : Vec2.get(0,49);
             body.translateShapes(Vec2.weak(-anchor.x,-anchor.y));
             body.position.setxy(0,0);
 
             bodies["game_agua_01"] = new BodyPair(body,anchor);
+        
+            body = new Body();
+            cbtype(body.cbTypes,"");
+
+            
+                mat = material("default");
+                filt = filter("default");
+                prop = fprop("default");
+
+                
+                    
+                        s = new Polygon(
+                            [   Vec2.weak(44,36)   ,  Vec2.weak(2,-470)   ,  Vec2.weak(-2,656)   ],
+                            mat,
+                            filt
+                        );
+                        s.body = body;
+                        s.sensorEnabled = false;
+                        s.fluidEnabled = false;
+                        s.fluidProperties = prop;
+                        cbtype(s.cbTypes,"");
+                    
+                
+            
+
+            anchor = (true) ? body.localCOM.copy() : Vec2.get(-18.67000005,203.33000024);
+            body.translateShapes(Vec2.weak(-anchor.x,-anchor.y));
+            body.position.setxy(0,0);
+
+            bodies["body_right"] = new BodyPair(body,anchor);
+        
+            body = new Body();
+            cbtype(body.cbTypes,"");
+
+            
+                mat = material("default");
+                filt = filter("default");
+                prop = fprop("default");
+
+                
+                    
+                        s = new Polygon(
+                            [   Vec2.weak(0,-514)   ,  Vec2.weak(-21,41)   ,  Vec2.weak(0,534)   ],
+                            mat,
+                            filt
+                        );
+                        s.body = body;
+                        s.sensorEnabled = false;
+                        s.fluidEnabled = false;
+                        s.fluidProperties = prop;
+                        cbtype(s.cbTypes,"");
+                    
+                
+            
+
+            anchor = (true) ? body.localCOM.copy() : Vec2.get(-94.0299997,-104.69);
+            body.translateShapes(Vec2.weak(-anchor.x,-anchor.y));
+            body.position.setxy(0,0);
+
+            bodies["body_left"] = new BodyPair(body,anchor);
         
     }
 }

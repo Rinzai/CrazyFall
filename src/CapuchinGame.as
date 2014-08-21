@@ -16,18 +16,22 @@ import com.taverna.capuchin.model.DificultModel;
 import com.taverna.capuchin.model.ScoreModel;
 import com.taverna.capuchin.model.vo.DificultData;
 
+import flash.display.MovieClip;
 import flash.events.KeyboardEvent;
 import flash.system.System;
 import flash.ui.Keyboard;
 
+import nape.callbacks.CbEvent;
 import nape.callbacks.CbType;
 import nape.callbacks.InteractionCallback;
+import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
 import nape.geom.Vec2;
 import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.phys.Material;
 import nape.space.Space;
+import nape.util.BitmapDebug;
 import nape.util.Debug;
 
 import starling.animation.DelayedCall;
@@ -35,7 +39,6 @@ import starling.animation.Juggler;
 import starling.animation.Transitions;
 import starling.animation.Tween;
 import starling.core.Starling;
-import starling.display.Button;
 import starling.display.DisplayObject;
 import starling.display.Sprite;
 import starling.events.EnterFrameEvent;
@@ -105,9 +108,14 @@ public final class CapuchinGame extends Sprite
 
 		private var hasCollision:Boolean;
 		
+		private var bodyLeft:Body;
+		private var bodyRight:Body;
+		
 		public function CapuchinGame()
 		{
             super();
+		
+			
 			
 			this.addEventListener( starling.events.Event.ADDED_TO_STAGE, onAddedToStageHandler );
 		}
@@ -175,11 +183,34 @@ public final class CapuchinGame extends Sprite
 			_topFire.x = stage.stageWidth*0.5
 		 	addChild( _topFire );
 			
+			bodyLeft = Nape.createBody("body_left");
+			bodyLeft.mass = 10000;
+			bodyLeft.velocity = Vec2.weak(0,0);
+			bodyLeft.space = space;
+			bodyLeft.position = Vec2.weak(-8,295);
+			bodyLeft.allowMovement = false;
+			bodyLeft.allowRotation = false;
+			bodyLeft.type = BodyType.STATIC;
+			bodyLeft.surfaceVel = Vec2.weak(140,0);
+			bodyLeft.setShapeMaterials( new Material(0,0,0,0,0) );
+			
+			bodyRight = Nape.createBody("body_right");
+			bodyRight.mass = 10000;
+			bodyRight.velocity = Vec2.weak(0,0);
+			bodyRight.space = space;
+			bodyRight.position = Vec2.weak(bkg.width+12,295);
+			bodyRight.allowMovement = false;
+			bodyRight.allowRotation = false;
+			bodyRight.type = BodyType.STATIC;
+			bodyRight.surfaceVel = Vec2.weak(-140,0);
+			bodyRight.setShapeMaterials( new Material(0,0,0,0,0) );
+			
 			topScore = new TopScore();
 			topScore.addEventListener( starling.events.TouchEvent.TOUCH, onTopScoreButtonClickedHandler );
 			addChild(topScore);
 			
 			resetCapuchinVel();
+			
 			
 		}
 		
@@ -199,6 +230,7 @@ public final class CapuchinGame extends Sprite
 			_capuchin.body.mass = 1;
 			_capuchin.body.surfaceVel = CAPUCHIN_STOP;
 			_capuchin.body.position = Vec2.weak( _capuchin.x, _capuchin.y);
+			_capuchin.body.space = space;
 			
 			Starling.juggler.add( juggler );
 			
@@ -328,49 +360,14 @@ public final class CapuchinGame extends Sprite
 	
 			var touch:Touch;
 			
-			/*touch = e.getTouch( this._leftButton );
-			
-			if(touch && (touch.phase == TouchPhase.BEGAN ) )
-			{
-				_capuchin.walkLeft();
-				_currTouchStats = PRESS_LEFT;
-			}
-			
-			if(touch && touch.phase == TouchPhase.ENDED)
-			{
-				_capuchin.downLeft();
-				_currTouchStats = RELEASE;
-			}
-			
-			touch = e.getTouch( this._rightButton );
-			
-			if(touch && (touch.phase == TouchPhase.BEGAN ))
-			{
-				_capuchin.walkRight();
-				_currTouchStats = PRESS_RIGHT;
-				return;
-			}
-			
-			if(touch && touch.phase == TouchPhase.ENDED)
-			{
-				_capuchin.downRight();
-				_currTouchStats = RELEASE;
-			}*/
-			
-		
-			//if(!_leftButton.visible && !_rightButton.visible )
-			//{
 				result.length = 0;
 				e.getTouches(this,null, result);
- 				//trace(result.length);
 				
 				if(result.length > 0)
 				{
 					result.reverse();
 					touch = result[0];
-					//trace(touch.phase, " / ", touch.globalX, " / ", this.bkg.width*.23, " / ", this.bkg.width*.77);
 				}
-			//}
 				
 			if(touch && touch.phase != TouchPhase.ENDED)
 			{
@@ -465,42 +462,37 @@ public final class CapuchinGame extends Sprite
 			{
 				capuchinDie();
 			}
-		}
-		
-		private function shineScore():void
-		{
 			
-		}
-		
-		private function onCapuchinColisions(b:Body):void
-		{
-			/*if(b == bodyLeft || b == bodyRight)
-			{
-				_capuchin.body.surfaceVel = _capuchinWalkSuperficieRelease;
-				return;
-			}*/
-			
-			hasCollision = true;
-			
-			var graphic:DisplayObject = b.userData.graphic;
 			if(graphic is Branch)
 			{
-				var branch:Branch = graphic as Branch;
-				this.swapChildren(branch, _capuchin );
 				
-				if(branch.isFireBranch)
+				this.swapChildren(graphic, _capuchin );
+				
+				if(Branch(graphic).isFireBranch)
 				{					
 					capuchinDie();
 				}
-				
+				return;
+			}
+		}
+		
+		
+		private function onCapuchinColisions(b:Body):void
+		{
+			if(b == bodyLeft || b == bodyRight)
+			{
+				_capuchin.body.surfaceVel = _capuchinWalkSuperficieRelease;
+				return;
 			}
 			
-			
+			hasCollision = true;
 			
 		}
 		
 		private function capuchinDie():void
 		{
+			if(_capuchin.isDie) return;
+			
 			//this.removeEventListener( EnterFrameEvent.ENTER_FRAME, onEnterFrameHandler );
 			this.removeEventListener( TouchEvent.TOUCH, onTochHandler );
 			topScore.touchable = false;
@@ -510,13 +502,10 @@ public final class CapuchinGame extends Sprite
 			
 			resetCapuchinVel();
 			
-			var tw2:Tween = new Tween(_capuchin, 0.4, Transitions.EASE_IN_OUT);
-			tw2.repeatCount = 18;
-			tw2.reverse = true;
-			tw2.animate("scaleX",0.92);
+			_capuchin.body.space = null;
 			
-			var tw:Tween = new Tween(_capuchin, 2, _capuchin.y < this.bkg.height*0.9 ? Transitions.EASE_IN_BACK : Transitions.EASE_IN);
-			tw.moveTo( _capuchin.x, 0);
+			var tw:Tween = new Tween(_capuchin, 2, _capuchin.y < this.bkg.height+0.2 ? Transitions.EASE_IN_BACK : Transitions.EASE_IN);
+			tw.moveTo( _capuchin.x, this.bkg.height+20);
 			tw.onComplete = function():void
 			{
 				Fruit.saveFruits();
@@ -531,10 +520,9 @@ public final class CapuchinGame extends Sprite
 				
 				Observer.dispatcher.dispatchEvent( new CapuchinEvent( CapuchinEvent.GAME_OVER ) );
 				
-				Starling.juggler.remove( tw2 );
+				Starling.juggler.remove( tw );
 			};
 			
-			Starling.juggler.add( tw2 );
 			Starling.juggler.add( tw );
 			
 			Assets.playDieSound();
@@ -562,17 +550,29 @@ public final class CapuchinGame extends Sprite
 		private function onUpdate(b:Body):void
 		{
 			var graphic:DisplayObject = b.userData.graphic;
-			graphic.x = b.position.x;
-			graphic.y = b.position.y;
+			if(graphic.name != "siri")
+			{
+				graphic.x = b.position.x;
+				graphic.y = b.position.y;
+			}
 			//graphic.rotation = (b.rotation * 180 / Math.PI) % 360;
 			
-			if(graphic is Branch && graphic.y < 0)
+			if(graphic is Branch)
 			{
-				//trace("remove branch");
 				var branch:Branch = graphic as Branch;
-				branch.visible = false;
-				space.bodies.remove( branch.body );
-				Branch.registerBranchCache( branch );
+				if(graphic.y < 0)
+				{
+				
+					branch.visible = false;
+					space.bodies.remove( branch.body );
+					Branch.registerBranchCache( branch );
+				
+				}else if(branch.isFireBranch)
+				{
+					branch.siriBody.position = Vec2.weak( branch.x+branch.siriMovieClip.x-20, branch.y+branch.siriMovieClip.y);	
+				}
+				
+				
 				return;
 			}
 			
@@ -680,11 +680,13 @@ public final class CapuchinGame extends Sprite
 			
 			if(branch.x < branchMidleSize+_capuchin.width)
 			{
-				branch.x = branchMidleSize;
+				branch.x = branch.width-branchMidleSize+2;
 			}else if(branch.x > stage.stageWidth-branchMidleSize-_capuchin.width)
 			{
 				branch.x = stage.stageWidth-branchMidleSize;
 			}
+			
+			
 			
 			branch.initAnimations();
 
@@ -693,6 +695,11 @@ public final class CapuchinGame extends Sprite
 			_body.position = pos;
 			_body.velocity = branchVelocity.copy(true);
 			_body.space = space;
+			
+			if(branch.isFireBranch)
+			{
+				branch.siriBody.space = space;
+			}
 			
 			Observer.dispatcher.dispatchEvent( new CapuchinEvent(CapuchinEvent.ADD_SCORE,false,DificultModel.getCurrentDificultData().pointPerBranch ));
 			topScore.updateScore( String(ScoreModel.score) );

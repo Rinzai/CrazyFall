@@ -44,7 +44,7 @@ package com.taverna.capuchin.screen
 				e.preventDefault();
 				e.stopImmediatePropagation();
 				
-				if(ranking.touchable)
+				if(startBtn.touchable)
 				{
 					onStartBtnClickedHandler(null);
 				}
