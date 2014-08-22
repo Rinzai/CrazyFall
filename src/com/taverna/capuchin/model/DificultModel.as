@@ -57,7 +57,6 @@ package com.taverna.capuchin.model
 				dData = _hardDificult[_currDificultIndex++];
 			}
 			
-			AnalyticsHelper.trackEvent( getDificultName( _currDificult ), _currDificultIndex.toString());
 			
 			return dData;
 		}

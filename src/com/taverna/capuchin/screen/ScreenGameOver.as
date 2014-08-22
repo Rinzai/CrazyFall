@@ -1,19 +1,10 @@
 package com.taverna.capuchin.screen
 {
-	import com.freshplanet.ane.AirGooglePlayGames.AirGooglePlayGames;
-	import com.freshplanet.ane.AirGooglePlayGames.AirGooglePlayGamesEvent;
-	import com.milkmangames.nativeextensions.AdMob;
-	import com.milkmangames.nativeextensions.AdMobAdType;
-	import com.milkmangames.nativeextensions.AdMobAlignment;
-	import com.milkmangames.nativeextensions.RateBox;
 	import com.taverna.capuchin.CapuchinEvent;
 	import com.taverna.capuchin.Observer;
-	import com.taverna.capuchin.helpers.AnalyticsHelper;
 	import com.taverna.capuchin.model.ConfigModel;
 	import com.taverna.capuchin.model.ScoreModel;
-	import com.taverna.capuchin.model.vo.ConfigData;
 	
-	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.system.System;
 	import flash.ui.Keyboard;
@@ -174,38 +165,10 @@ package com.taverna.capuchin.screen
 			
 			Starling.juggler.add( tw );
 			
-			try{
-				trace("try show banner / ", AdMob.isSupported);
-				
-				//CapuchinAndroidVersion.banner.show();
-				
-				/*if(AdMob.isSupported)
-				{
-					AdMob.showAd( AdMobAdType.SMART_BANNER, AdMobAlignment.CENTER, AdMobAlignment.BOTTOM);
-				}*/
-				
-				
-				
-			}catch(e:Error)
-			{
-				trace("error show banner")
-				AnalyticsHelper.trackEvent("ERROR AD", "GAME OVER SHOW AD");
-			}
 		}
 		
 		private function onClickedHandler(e:starling.events.Event):void
 		{
-			try{
-				trace("try hide banner / ", AdMob.isSupported)
-				//if(AdMob.isSupported)
-				//{
-					//AdMob.destroyAd();
-				//}
-			}catch(e:Error)
-			{
-				trace("error hide banner")
-				AnalyticsHelper.trackEvent("ERROR AD", "GAME OVER REMOVE AD");
-			}
 			
 			Starling.juggler.removeTweens( this );
 			

@@ -1,15 +1,10 @@
 package
 {
-	import com.freshplanet.ane.AirGooglePlayGames.AirGooglePlayGames;
-	import com.freshplanet.ane.AirGooglePlayGames.AirGooglePlayGamesEvent;
-	import com.milkmangames.nativeextensions.RateBox;
-	import com.purplebrain.adbuddiz.sdk.nativeExtensions.AdBuddiz;
 	import com.taverna.capuchin.CapuchinEvent;
 	import com.taverna.capuchin.Observer;
 	import com.taverna.capuchin.graphics.Branch;
 	import com.taverna.capuchin.graphics.Fruit;
 	import com.taverna.capuchin.graphics.ProgressBar;
-	import com.taverna.capuchin.helpers.AnalyticsHelper;
 	import com.taverna.capuchin.model.ConfigModel;
 	import com.taverna.capuchin.model.DificultModel;
 	import com.taverna.capuchin.model.ScoreModel;
@@ -182,88 +177,16 @@ package
 		private function onShowRanking(e:starling.events.Event):void
 		{
 			
-			/*if(ConfigModel.getData().can_show_leaderboard && ConfigModel.hasConnection)
-			{
-				
-				try
-				{
-					if(AirGooglePlayGames.isSupported)
-					{
-						if(AirGooglePlayGames.getInstance().getActivePlayerName() == null)
-						{
-							AnalyticsHelper.trackEvent("Ranking", "SignIn click");
-							AirGooglePlayGames.getInstance().signIn();
-							AirGooglePlayGames.getInstance().addEventListener( AirGooglePlayGamesEvent.ON_SIGN_IN_SUCCESS, onGooglePlayReady,false,0,true );
-						}else if(AirGooglePlayGames.isSupported && AirGooglePlayGames.getInstance().getActivePlayerName())
-							{
-								if(ScoreModel.score < 100000)
-								{
-									AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQAQ",ScoreModel.score);
-									AirGooglePlayGames.getInstance().showLeaderboard("CgkI5e7M8_McEAIQAQ");
-								}else if(ScoreModel.score >= 100000)
-								{
-									AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQBw",ScoreModel.score);
-									AirGooglePlayGames.getInstance().showLeaderboard("CgkI5e7M8_McEAIQBw");
-								}
-						}
-					}
-				}catch(e:Error)
-				{
-					AnalyticsHelper.trackEvent("Ranking", "Error");
-				}
-				
-			}else
-			{
-				if(ConfigModel.hasConnection)
-				{
-					
-					if(ConfigModel.getData().has_Google_Play_App == false)
-					{
-						ConfigModel.installApp(ConfigModel.GOOGLE_PLAY_APP);
-					}else if( ConfigModel.getData().has_Google_Play_Service_App == false )
-					{
-						ConfigModel.installApp(ConfigModel.GOOGLE_PLAY_SERVICE_APP);
-					}
-					
-				}
-			}*/
 		}
 		
 		protected function onGooglePlayReady(event:flash.events.Event):void
 		{
-			/*try
-			{
-				AnalyticsHelper.trackEvent("Ranking", "SignIn Sucess");
-				AirGooglePlayGames.getInstance().removeEventListener( AirGooglePlayGamesEvent.ON_SIGN_IN_SUCCESS, onGooglePlayReady );
-				if(AirGooglePlayGames.isSupported && AirGooglePlayGames.getInstance().getActivePlayerName())
-				{
-					if(ScoreModel.score < 100000)
-					{
-						AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQAQ",ScoreModel.score);
-						AirGooglePlayGames.getInstance().showLeaderboard("CgkI5e7M8_McEAIQAQ");
-					}else if(ScoreModel.score >= 100000)
-					{
-						AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQBw",ScoreModel.score);
-						AirGooglePlayGames.getInstance().showLeaderboard("CgkI5e7M8_McEAIQBw");
-					}
-				}
-				
-				updatePlayerName();
-			}catch(e:Error)
-			{
-				AnalyticsHelper.trackEvent("Ranking", "Error");
-			}*/
+			
 		}
 		
 		private function updatePlayerName():void
 		{
-			/*if(AirGooglePlayGames.getInstance().getActivePlayerName())
-			{
-				Observer.dispatcher.dispatchEvent( new CapuchinEvent( CapuchinEvent.UPDATE_PLAYER_NAME, false, AirGooglePlayGames.getInstance().getActivePlayerName() ) );
-			}else
-			{
-				Observer.dispatcher.dispatchEvent( new CapuchinEvent( CapuchinEvent.UPDATE_PLAYER_NAME, false, "") );
-			}*/
+			
 		}
 		
 		private function onPlayAgainClickedHandler(e:starling.events.Event):void
@@ -283,61 +206,6 @@ package
 		{
 			removeChild( _capuchinGame );
 			addChild( _gameOverScreen );
-			
-			/*if(AirGooglePlayGames.isSupported && AirGooglePlayGames.getInstance().getActivePlayerName())
-			{
-				if(ScoreModel.score < 100000)
-				{
-					AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQAQ",ScoreModel.score);
-				}else if(ScoreModel.score >= 100000)
-				{
-					AirGooglePlayGames.getInstance().reportScore("CgkI5e7M8_McEAIQBw",ScoreModel.score);
-				}
-			}
-			
-			if(RateBox.isSupported() && RateBox.rateBox && ScoreModel.score > 1000)
-			{
-				RateBox.rateBox.incrementEventCount();
-			}
-
-			ConfigModel.incremmentEndGame();
-			
-			if(ConfigModel.getData().end_game_total%3 == 0 )
-			{
-				AdBuddiz.showAd();
-			}
-			
-			if(ConfigModel.getData().can_show_leaderboard && ConfigModel.hasConnection)
-			{
-				if(AirGooglePlayGames.isSupported 
-					&& AirGooglePlayGames.getInstance().getActivePlayerName() == null 
-					&& ConfigModel.getData().can_show_leaderboard
-					&& ScoreModel.score > ConfigModel.getData().ranking_point )
-				{
-					try
-					{
-						AnalyticsHelper.trackEvent("EndGame Ranking", "Try SignIn");
-						AirGooglePlayGames.getInstance().signIn();
-						AirGooglePlayGames.getInstance().addEventListener( AirGooglePlayGamesEvent.ON_SIGN_IN_SUCCESS, onGooglePlayReady,false,0,true );
-					}catch(e:Error)
-					{
-						AnalyticsHelper.trackEvent("ERROR", "Try SignIn");
-					}finally
-					{
-						ConfigModel.setRanking( ScoreModel.score );
-					}
-				}else
-				{
-					ConfigModel.setRanking( ScoreModel.score );
-				}
-				
-			}else
-			{
-				ConfigModel.setRanking( ScoreModel.score );
-			}
-			
-			updatePlayerName();*/
-			
 		}
 		
 		private function onGamePaused(e:starling.events.Event):void
@@ -345,23 +213,6 @@ package
 			updatePlayerName();
 			
 			addChild( _pauseIndicator );
-
-			/*try{
-				if(_deactivated == false)
-				{
-					if(AdMob.isInterstitialReady())
-					{
-						setTimeout(AdMob.showPendingInterstitial, 500);
-						setTimeout(AdMob.loadInterstitial,1000,"ca-app-pub-0976264754680933/8502915726",false);
-					}
-				}
-			}catch(e:Error)
-			{
-				AnalyticsHelper.trackEvent("ERROR", "Erro try show interstial banner pause");
-			}*/
-			
-			//if(e.data)
-				//AdBuddiz.showAd(); 
 		}
 		
 	}

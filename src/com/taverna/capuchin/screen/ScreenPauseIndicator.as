@@ -155,7 +155,6 @@ package com.taverna.capuchin.screen
 			
 			updateVolume();
 			//ranking.touchable = true;
-			AnalyticsHelper.trackView("PAUSE INDICATOR SCREEN");
 			
 		}
 		

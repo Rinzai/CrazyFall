@@ -11,21 +11,16 @@ import com.taverna.capuchin.graphics.Monkey;
 import com.taverna.capuchin.graphics.Nape;
 import com.taverna.capuchin.graphics.TopFire;
 import com.taverna.capuchin.graphics.TopScore;
-import com.taverna.capuchin.helpers.AnalyticsHelper;
 import com.taverna.capuchin.model.DificultModel;
 import com.taverna.capuchin.model.ScoreModel;
 import com.taverna.capuchin.model.vo.DificultData;
 
-import flash.display.MovieClip;
 import flash.events.KeyboardEvent;
 import flash.system.System;
 import flash.ui.Keyboard;
 
-import nape.callbacks.CbEvent;
-import nape.callbacks.CbType;
-import nape.callbacks.InteractionCallback;
-import nape.callbacks.InteractionListener;
 import nape.callbacks.InteractionType;
+import nape.dynamics.InteractionGroup;
 import nape.geom.Vec2;
 import nape.phys.Body;
 import nape.phys.BodyType;
@@ -153,8 +148,7 @@ public final class CapuchinGame extends Sprite
 		
 		private function init():void
 		{
-			AnalyticsHelper.trackView("Capuchin Game");
-			
+
 			space = new Space( Vec2.weak(0,0));
 			
 			//debug = new BitmapDebug(stage.stageWidth, stage.stageHeight,stage.color,false);
@@ -174,6 +168,7 @@ public final class CapuchinGame extends Sprite
 			_capuchin.downLeft();
 			_capuchin.x = 30
 			_capuchin.y = 150;
+			_capuchin.body.group = new InteractionGroup(true);
 			addChild( _capuchin );
 			
 			initCapuchinPosition = Vec2.weak( _capuchin.x, _capuchin.y);
@@ -479,9 +474,19 @@ public final class CapuchinGame extends Sprite
 		
 		private function onCapuchinColisions(b:Body):void
 		{
+			var graphic:DisplayObject = b.userData.graphic;
+			
+			
+			
 			if(b == bodyLeft || b == bodyRight)
 			{
 				_capuchin.body.surfaceVel = _capuchinWalkSuperficieRelease;
+				return;
+			}
+			
+			if(graphic is Branch && Branch(graphic).isFireBranch)
+			{					
+				capuchinDie();
 				return;
 			}
 			
@@ -549,7 +554,7 @@ public final class CapuchinGame extends Sprite
 		
 		private function onUpdate(b:Body):void
 		{
-			var graphic:DisplayObject = b.userData.graphic;
+			const graphic:DisplayObject = b.userData.graphic;
 			if(graphic.name != "siri")
 			{
 				graphic.x = b.position.x;
@@ -567,9 +572,12 @@ public final class CapuchinGame extends Sprite
 					space.bodies.remove( branch.body );
 					Branch.registerBranchCache( branch );
 				
-				}else if(branch.isFireBranch)
+				}
+				
+				
+				if(branch.isFireBranch)
 				{
-					branch.siriBody.position = Vec2.weak( branch.x+branch.siriMovieClip.x-20, branch.y+branch.siriMovieClip.y);	
+					branch.siriBody.position = Vec2.weak( branch.x+branch.siriMovieClip.x-20, branch.y+branch.siriMovieClip.y-5);	
 				}
 				
 				
@@ -589,7 +597,6 @@ public final class CapuchinGame extends Sprite
 				return;
 			}
 			
-			graphic = null;
 		}
 		
 		private function sendFruit(acai:Boolean = false):void

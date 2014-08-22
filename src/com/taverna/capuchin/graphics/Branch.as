@@ -6,6 +6,7 @@ import flash.geom.Rectangle;
 import nape.geom.Vec2;
 import nape.phys.Body;
 import nape.phys.BodyType;
+import nape.phys.MassMode;
 import nape.phys.Material;
 
 import starling.display.Image;
@@ -44,6 +45,8 @@ import starling.display.Sprite;
 			var rand:Number = Math.random();
 			bodyName = "";
 			
+			
+			
 			if(rand < 0.25)
 			{
 				bodyName = "game_rock01";
@@ -81,7 +84,12 @@ import starling.display.Sprite;
 				siriBody.type = BodyType.DYNAMIC;
 				siriBody.mass = 0;
 				siriBody.inertia = 0;
-				siriBody.allowMovement = true;
+				siriBody.gravMass = 0;
+				siriBody.gravMassScale = 0;
+				siriBody.velocity = Vec2.weak(0,0);
+				siriBody.force = Vec2.weak(0,0);
+				siriBody.surfaceVel = Vec2.weak(0,0);
+				siriBody.allowMovement = false;
 				siriBody.allowRotation = false;
 				siriBody.setShapeMaterials( new Material(0,0,0,0,0) );
 				
